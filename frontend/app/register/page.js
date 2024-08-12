@@ -19,7 +19,7 @@ export default function Home() {
         setSuccess(''); // Сброс успеха перед новой попыткой
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/user/register', {
+            const response = await axios.post('/api/user/register', {
                 username: username,
                 email: email,
                 password: password

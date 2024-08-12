@@ -43,7 +43,7 @@ export default function Home() {
 
 
     const DeleteProduct = async (product_id) => {
-        const response = await axios.delete('http://127.0.0.1:8000/products/delete/' + product_id)
+        const response = await axios.delete('/api/products/delete/' + product_id)
 
         setProducts(prevProducts => prevProducts.filter(product => product.id !== product_id));
         console.log(response.data);

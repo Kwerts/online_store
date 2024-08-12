@@ -21,7 +21,7 @@ export default function Home() {
             password: password
         })
         try {
-            const response = await axios.post('http://127.0.0.1:8000/user/login', new URLSearchParams({
+            const response = await axios.post('/api/user/login', new URLSearchParams({
                 username: username,
                 password: password,
             }), {

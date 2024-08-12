@@ -19,7 +19,7 @@ export default function Home() {
     useEffect(() => {
         const Redirection = async () => {
             try {
-                const response = await axios.post('http://127.0.0.1:8000/user/check/auth', {}, {
+                const response = await axios.post('/api/user/check/auth', {}, {
                     withCredentials: true
                 });
                 console.log(response.data);

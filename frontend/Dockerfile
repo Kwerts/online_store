@@ -14,6 +14,8 @@ COPY . .
 # Собираем проект
 RUN npm run build
 
+RUN npm run export
+
 # Этап запуска
 FROM nginx:stable-alpine
 
