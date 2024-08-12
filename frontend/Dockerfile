@@ -1,6 +1,7 @@
 # Этап сборки
 FROM node:alpine as build
 
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
 # Копируем файлы зависимостей
@@ -11,16 +12,19 @@ RUN npm install
 COPY . .
 
 # Собираем проект
-RUN npm run build  # Это также создаст папку out, если конфиг настроен
+RUN npm run build
 
 # Этап запуска
 FROM nginx:stable-alpine
 
-# Копируем экспортированные файлы в nginx
+# Копируем экспортированные файлы в директорию Nginx
 COPY --from=build /app/out /usr/share/nginx/html
 
-# Открываем порт 3000 (или 80, если nginx)
-EXPOSE 80
+# Копируем конфигурацию Nginx (если необходимо)
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Запускаем nginx
+# Открываем порт 3000
+EXPOSE 3000
+
+# Команда запуска Nginx
 CMD ["nginx", "-g", "daemon off;"]
