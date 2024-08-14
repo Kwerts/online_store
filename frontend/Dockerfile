@@ -12,13 +12,12 @@ RUN npm install
 COPY . .
 
 # Собираем проект
-RUN npm run build          # Сборка приложения
-RUN npm run export         # Экспортирует статические файлы в папку out
+RUN npm run build  # Эта команда создаст необходимые статические файлы
 
 # Этап запуска
 FROM nginx:stable-alpine
 
-# Копируем экспортированные файлы в директорию Nginx
+# Копируем файлы из папки out в директорию Nginx
 COPY --from=build /app/out /usr/share/nginx/html
 
 # Копируем конфигурацию Nginx (если необходимо)

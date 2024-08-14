@@ -1,6 +1,4 @@
-   // next.config.js
-   module.exports = {
-    output: 'export',
-    // другие настройки, если есть
-  };
-  
+// next.config.js
+module.exports = {
+  output: 'export', // Убедитесь, что это указано
+};
