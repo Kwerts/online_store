@@ -12,7 +12,8 @@ RUN npm install
 COPY . .
 
 # Собираем проект
-RUN npm run build
+RUN npm run build          # Сборка приложения
+RUN npm run export         # Экспортирует статические файлы в папку out
 
 # Этап запуска
 FROM nginx:stable-alpine
@@ -23,8 +24,8 @@ COPY --from=build /app/out /usr/share/nginx/html
 # Копируем конфигурацию Nginx (если необходимо)
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Открываем порт 3000
-EXPOSE 3000
+# Открываем порт 80 (по стандарту Nginx)
+EXPOSE 80
 
 # Команда запуска Nginx
 CMD ["nginx", "-g", "daemon off;"]
