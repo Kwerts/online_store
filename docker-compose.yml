@@ -1,18 +1,29 @@
-version: '3.8'
+networks:
+  dev:
 
 services:
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - './nginx.conf:/etc/nginx/nginx.conf'
+      - '/etc/letsencrypt:/etc/letsencrypt'
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - dev
+    
+
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"  # Проброс порта для бэкенда, проверьте, есть ли он в вашем приложении
-    env_file:
-      - backend/.env  # Файл окружения, если он необходим
+    networks:
+      - dev
 
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "3000:80"  # Проброс порта для Nginx
+    networks:
+      - dev
