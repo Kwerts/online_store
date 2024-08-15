@@ -9,19 +9,19 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 # Копируем остальные файлы приложения
-COPY . .  # Убедитесь, что все файлы копируются корректно
+COPY . .
 
 # Собираем проект
-RUN npm run build  # Это создаст необходимые статические файлы
+RUN npm run build
 
 # Этап запуска
 FROM nginx:stable-alpine
 
 # Копируем сгенерированные файлы в директорию Nginx
-COPY --from=build /app/.next /usr/share/nginx/html  # По умолчанию выходные файлы могут находиться в .next
+COPY --from=build /app/.next /usr/share/nginx/html
 
 # Копируем конфигурацию Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf  # Убедитесь, что путь правильный
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Открываем порт 80
 EXPOSE 80
