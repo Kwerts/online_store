@@ -23,8 +23,7 @@ COPY --from=build /app/.next /usr/share/nginx/html
 # Копируем конфигурацию Nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Открываем порт 80
-EXPOSE 80
+EXPOSE 3000
 
 # Команда запуска Nginx
 CMD ["nginx", "-g", "daemon off;"]
