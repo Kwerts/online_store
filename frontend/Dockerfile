@@ -1,14 +1,14 @@
 # Этап сборки
 FROM node:alpine as build
 
-WORKDIR /app
-
 # Копируем файлы зависимостей
 COPY package.json package-lock.json ./
 RUN npm install
 
 # Копируем остальные файлы приложения
 COPY . .
+
+WORKDIR /app
 
 # Собираем проект
 RUN npm run build
