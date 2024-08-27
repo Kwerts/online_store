@@ -1,6 +1,8 @@
 # Этап сборки
 FROM node:alpine as build
 
+WORKDIR /app
+
 # Копируем файлы зависимостей
 COPY package.json package-lock.json ./
 RUN npm install
@@ -13,8 +15,6 @@ RUN npm run build
 
 # Этап запуска
 FROM nginx:stable-alpine
-
-WORKDIR /app
 
 # Копируем сгенерированные файлы в директорию Nginx
 COPY --from=build /app/.next /usr/share/nginx/html
