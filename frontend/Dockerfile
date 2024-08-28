@@ -1,10 +1,8 @@
 # Этап сборки
 FROM node:alpine as build
 
-WORKDIR /app
-
 # Копируем файлы зависимостей
-COPY package.json package-lock.json ./
+COPY package.json package.json
 RUN npm install
 
 # Копируем остальные файлы приложения
@@ -17,12 +15,11 @@ RUN npm run build
 FROM nginx:stable-alpine
 
 # Копируем сгенерированные файлы в директорию Nginx
-COPY --from=build /app/.next /usr/share/nginx/html
+COPY --from=build /dist /usr/share/nginx/html
 
 # Копируем конфигурацию Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 3000
 
-# Команда запуска Nginx
 CMD ["nginx", "-g", "daemon off;"]
