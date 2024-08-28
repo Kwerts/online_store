@@ -20,7 +20,7 @@ FROM nginx:stable-alpine
 COPY --from=build /app/.next /usr/share/nginx/html
 
 # Копируем конфигурацию Nginx
-COPY --from=build nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 3000
 
