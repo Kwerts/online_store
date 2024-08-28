@@ -1,6 +1,8 @@
 # Этап сборки
 FROM node:alpine as build
 
+WORKDIR /app
+
 # Копируем файлы зависимостей
 COPY package.json package.json
 RUN npm install
