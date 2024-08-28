@@ -4,8 +4,9 @@ FROM node:alpine as build
 WORKDIR /app
 
 # Копируем файлы зависимостей
-COPY package.json package.json
-RUN npm install
+COPY package.json package-lock.json ./
+
+RUN npm install --production
 
 # Копируем остальные файлы приложения
 COPY . .
@@ -16,8 +17,9 @@ RUN npm run build
 # Этап запуска
 FROM nginx:stable-alpine
 
-# Копируем сгенерированные файлы в директорию Nginx
-COPY --from=build /app/.next /usr/share/nginx/html
+# Копируем сгенерированные файлы из стадии сборки
+COPY --from=build /app/.next/standalone ./
+COPY --from=build /app/public ./public
 
 # Копируем конфигурацию Nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
