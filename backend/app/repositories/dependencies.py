@@ -1,6 +1,6 @@
 from sqlalchemy import select
 
-from database.models import async_session
-from database.models import User, ProductCategory, Product
+from app.database.models import async_session
+from app.database.models import User, ProductCategory, Product
 
-import schemas as schemas
+import app.schemas as schemas

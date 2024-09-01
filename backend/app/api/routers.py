@@ -7,10 +7,10 @@ from fastapi.security import OAuth2PasswordRequestForm
 from passlib.context import CryptContext
 from dotenv import load_dotenv
 
-import schemas
+import app.schemas as schemas
 
-from repositories.user import user_repository
-from repositories.product import product_repository, \
+from app.repositories.user import user_repository
+from app.repositories.product import product_repository, \
     categories_repository as product_categories_repository
 
 

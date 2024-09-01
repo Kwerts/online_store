@@ -1,4 +1,4 @@
-from repositories.dependencies import select, Product, schemas, async_session
+from app.repositories.dependencies import select, Product, schemas, async_session
 
 
 async def get_product(product_id: int) -> Product | None:

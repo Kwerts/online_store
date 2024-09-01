@@ -1,4 +1,4 @@
-from repositories.dependencies import select, schemas, User, async_session
+from app.repositories.dependencies import select, schemas, User, async_session
 
 
 async def add_user(user_to_add: schemas.AddUser):

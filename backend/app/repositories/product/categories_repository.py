@@ -1,4 +1,4 @@
-from repositories.dependencies import select, ProductCategory, async_session
+from app.repositories.dependencies import select, ProductCategory, async_session
 
 
 async def get_product_category(name: str) -> ProductCategory:
