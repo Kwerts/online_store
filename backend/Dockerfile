@@ -1,10 +1,10 @@
 FROM python:3.12.0-slim
 
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-WORKDIR /app
-
-CMD [ "python", "main.py" ]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
