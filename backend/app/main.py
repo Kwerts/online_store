@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
-from api.routers import router
+from app.api.routers import router
 from database.models import create_database_and_tables
 
 
