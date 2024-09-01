@@ -3,15 +3,12 @@ FROM node:alpine AS build
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm install --production
+COPY package*.json ./
+RUN npm install
 
 COPY . .
 
 RUN npm run build
-
-# Проверяем содержимое .next для отладки, возможно, после этого его следует убрать
-RUN ls -la .next
 
 # Этап запуска
 FROM nginx:stable-alpine
