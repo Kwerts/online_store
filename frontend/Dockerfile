@@ -13,10 +13,7 @@ RUN npm run build
 # Этап запуска
 FROM nginx:stable-alpine
 
-# Удаляем конфигурацию Nginx по умолчанию
-RUN rm /etc/nginx/conf.d/default.conf
-
-# Копируем вашу конфигурацию Nginx
+COPY --from=build /dist /usr/share/nginx/html
 COPY --from=build nginx.conf /etc/nginx/conf.d/default.conf
 
 # Копируем сгенерированные статические файлы в директорию Nginx
