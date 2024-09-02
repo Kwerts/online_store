@@ -13,14 +13,16 @@ RUN npm run build
 # Этап запуска
 FROM nginx:stable-alpine
 
-WORKDIR /usr/share/nginx/html
+# Удаляем конфигурацию Nginx по умолчанию
+RUN rm /etc/nginx/conf.d/default.conf
 
-# Попробовать копировать .next целиком
-COPY --from=build /app/.next ./
-COPY --from=build /app/public ./public
-
-# Копировать конфигурацию Nginx
+# Копируем вашу конфигурацию Nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Копируем сгенерированные статические файлы в директорию Nginx
+COPY --from=build /app/.next /usr/share/nginx/html/.next
+COPY --from=build /app/public /usr/share/nginx/html/public  # Если есть статические файлы в public
+COPY --from=build /app/package.json /usr/share/nginx/html/  # Если это необходимо
 
 EXPOSE 3000
 
