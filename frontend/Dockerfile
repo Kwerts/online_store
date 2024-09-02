@@ -17,7 +17,7 @@ FROM nginx:stable-alpine
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Копируем вашу конфигурацию Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build nginx.conf /etc/nginx/conf.d/default.conf
 
 # Копируем сгенерированные статические файлы в директорию Nginx
 COPY --from=build /app/.next /usr/share/nginx/html/.next
