@@ -21,8 +21,8 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Копируем сгенерированные статические файлы в директорию Nginx
 COPY --from=build /app/.next /usr/share/nginx/html/.next
-COPY --from=build /app/public /usr/share/nginx/html/public  # Если есть статические файлы в public
-COPY --from=build /app/package.json /usr/share/nginx/html/  # Если это необходимо
+COPY --from=build /app/public /usr/share/nginx/html/public
+COPY --from=build /app/package.json /usr/share/nginx/html/
 
 EXPOSE 3000
 
