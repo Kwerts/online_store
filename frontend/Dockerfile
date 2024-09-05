@@ -10,10 +10,8 @@ COPY . .
 
 RUN npm run build
 
-# Этап запуска
 FROM nginx:stable-alpine
 
-# Копируем сгенерированные статические файлы в директорию Nginx
 COPY --from=build /app/.next /usr/share/nginx/html/.next
 COPY --from=build /app/public /usr/share/nginx/html/public
 COPY --from=build /app/package.json /usr/share/nginx/html/
