@@ -1,23 +1,23 @@
-# Этап сборки
-FROM node:alpine AS build
+# Чистый образ для Node.js
+FROM node:16
 
+# Размещаем рабочую директорию
 WORKDIR /app
 
+# Копируем файлы package.json и package-lock.json
 COPY package*.json ./
+
+# Устанавливаем зависимости
 RUN npm install
 
+# Копируем все остальные файлы
 COPY . .
 
+# Собираем приложение
 RUN npm run build
 
-FROM nginx:stable-alpine
-
-COPY --from=build /app/.next /usr/share/nginx/html/.next
-COPY --from=build /app/public /usr/share/nginx/html/public
-COPY --from=build /app/package.json /usr/share/nginx/html/
-
-# Открываем порт 3000
-EXPOSE 3000
-
-# Запускаем сервер Next.js
+# Указываем команду для старта приложения
 CMD ["npm", "start"]
+
+# Открываем порт
+EXPOSE 3000
